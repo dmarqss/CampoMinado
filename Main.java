@@ -54,8 +54,8 @@ public class Main {
                             x = Integer.parseInt(scan.nextLine());
                             System.out.println("CLICK Y:");
                             y = Integer.parseInt(scan.nextLine());
-                            emptyBoard.click(x, y);
                             clearConsole();
+                            emptyBoard.click(x, y);
                         } catch (Exception e) {
                             clearConsole();
                             System.out.println("CORDENADA INVALIDA");
@@ -68,8 +68,8 @@ public class Main {
                             x = Integer.parseInt(scan.nextLine());
                             System.out.println("FLAG Y:");
                             y = Integer.parseInt(scan.nextLine());
-                            emptyBoard.flag(x, y);
                             clearConsole();
+                            emptyBoard.flag(x, y);
                         } catch (Exception e) {
                             clearConsole();
                             System.out.println("CORDENADA INVALIDA");
@@ -86,7 +86,9 @@ public class Main {
                     break;
                 }
                 if (emptyBoard.getFlagCorrect() == 0) {
+                    clearConsole();
                     System.out.println("VOCE GANHOU");
+                    emptyBoard.showGrid();
                     break;
 
                 }

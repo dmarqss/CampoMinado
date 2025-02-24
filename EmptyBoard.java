@@ -35,16 +35,23 @@ public class EmptyBoard extends Board {
                     setFlagCorrect(-1);
                 }
             }
+        }else{
+            System.out.println("VOCE SO PODE MARCAR EM \".\"");
         }
     }
 
     public void click(int x, int y){
-        if(getOnGrid(x, y).equals(".") && fullBoard.getOnGrid(x,y) != "*"){
-            fill(emptyBoard,x,y,".", fullBoard.getGrid());
-            setAlive(true);
-        }else{
+        if(fullBoard.getOnGrid(x,y).equals("*") && getOnGrid(x, y).equals(".")){
             showBombs();
             setAlive(false);
+
+        }else if(getOnGrid(x,y).equals("P") || getOnGrid(x, y) != "."){
+            System.out.println("VOCE SO PODE CLICAR EM \".\"");
+            setAlive(true);
+        }
+        else{
+            fill(emptyBoard,x,y,".", fullBoard.getGrid());
+            setAlive(true);
         }
     }
 
