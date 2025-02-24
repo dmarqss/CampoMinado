@@ -8,7 +8,7 @@ public class FullBoard extends Board{
 
     public FullBoard(int nuberOfBombs){
         setGrid(fullBoard);
-        setNumberOfBombs(nuberOfBombs);
+        setNumberOfBombs(nuberOfBombs * 5);
         makeFullBoard(getNumberOfBombs());
     }
 
@@ -80,4 +80,5 @@ public class FullBoard extends Board{
     public void setNumberOfBombs(int numberOfBombs) {
         this.numberOfBombs = numberOfBombs;
     }
+
 }
