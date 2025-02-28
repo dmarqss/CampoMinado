@@ -1,4 +1,4 @@
-package campoMinado;
+package campoMinado.model;
 
 public abstract class Board {
     private String[][] grid;

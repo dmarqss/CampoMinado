@@ -1,8 +1,8 @@
-package campoMinado;
+package campoMinado.model;
 
 import java.util.Random;
 
-public class FullBoard extends Board{
+public class FullBoard extends Board {
     private final String[][] fullBoard = new String[10][10];
     private int numberOfBombs;
 

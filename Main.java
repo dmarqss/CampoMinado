@@ -1,8 +1,10 @@
 package campoMinado;
 
-import java.io.IOException;
-import java.util.InputMismatchException;
-import java.util.NoSuchElementException;
+import campoMinado.customExeptions.InvalidInputExeption;
+import campoMinado.customExeptions.OutOFRangeExeption;
+import campoMinado.model.EmptyBoard;
+import campoMinado.model.FullBoard;
+
 import java.util.Scanner;
 
 public class Main {
@@ -14,17 +16,7 @@ public class Main {
             System.out.println("     CAMPO MINADO");
             System.out.println("========================");
             System.out.println("\nESCOLHA A DIFICULDADE\n\nFACIL(1)\nMEDIO(2)\nDIFICIL(3)");
-            try {
-                 dificulty = Integer.parseInt(scan.nextLine());
-                 if(dificulty != 1 && dificulty != 2 && dificulty != 3){
-                     throw new IllegalArgumentException();
-                 }
-            }catch (Exception e){
-                clearConsole();
-                System.out.println("INPUT INVALIDO");
-                continue;
-            }
-
+            dificulty = userInput(1,3);
 
             FullBoard fullBoard = new FullBoard(dificulty);
             EmptyBoard emptyBoard = new EmptyBoard(fullBoard);
@@ -33,51 +25,26 @@ public class Main {
             //comeco loop do jogo
             while (true) {
                 emptyBoard.showGrid();
-                int clicOrFlag;
+                int clicOrFlag = userInput(0,1);;
                 int x;
                 int y;
-                try{
-                    clicOrFlag = Integer.parseInt(scan.nextLine());
-                    if(clicOrFlag != 0 && clicOrFlag != 1){
-                        throw new IllegalArgumentException();
-                    }
-                }
-                catch (Exception e){
-                    clearConsole();
-                    System.out.println("INPUT INVALIDO");
-                    continue;
-                }
                 switch (clicOrFlag) {
                     case 0:
-                        try {
-                            System.out.println("CLICK X:");
-                            x = Integer.parseInt(scan.nextLine());
-                            System.out.println("CLICK Y:");
-                            y = Integer.parseInt(scan.nextLine());
-                            clearConsole();
-                            emptyBoard.click(x, y);
-                        } catch (Exception e) {
-                            clearConsole();
-                            System.out.println("CORDENADA INVALIDA");
-                            continue;
-                        }
+                        System.out.println("CLICK X:");
+                        x = userInput(0,9);
+                        System.out.println("CLICK Y:");
+                        y = userInput(0,9);
+                        clearConsole();
+                        emptyBoard.click(x, y);
                         break;
                     case 1:
-                        try {
-                            System.out.println("FLAG X:");
-                            x = Integer.parseInt(scan.nextLine());
-                            System.out.println("FLAG Y:");
-                            y = Integer.parseInt(scan.nextLine());
-                            clearConsole();
-                            emptyBoard.flag(x, y);
-                        } catch (Exception e) {
-                            clearConsole();
-                            System.out.println("CORDENADA INVALIDA");
-                            continue;
-                        }
-
+                        System.out.println("FLAG X:");
+                        x = userInput(0,9);
+                        System.out.println("FLAG Y:");
+                        y = userInput(0,9);
+                        clearConsole();
+                        emptyBoard.flag(x, y);
                         break;
-
                 }
                 if (!emptyBoard.isAlive()) {
                     clearConsole();
@@ -90,23 +57,44 @@ public class Main {
                     System.out.println("VOCE GANHOU");
                     emptyBoard.showGrid();
                     break;
-
                 }
-
             }
             System.out.println("===================");
             System.out.println("JOGAR DE NOVO?\nSIM(1)\nNAO(0)");
-            if (scan.nextInt() == 0) {
+            if (userInput(0,1) == 0) {
                 break;
             }
         }
     }
 
-
     public static void clearConsole() {
         System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     }
 
+    public static int userInput(int min ,int max){
+        while (true){
+            try {
+                return collectUserInput(min, max);
+            }catch (OutOFRangeExeption e){
+                System.out.println("ESTA FORA DAS OPCOES");
+            }catch (InvalidInputExeption ex){
+                System.out.println("LETRAS NAO SAO VALIDAS");
+            }
+        }
+    }
 
+    public static int collectUserInput(int min, int max) throws OutOFRangeExeption, InvalidInputExeption {
+        Scanner scan = new Scanner(System.in);
+        int input;
+        try {
+            input = Integer.parseInt(scan.nextLine());
+        } catch (Exception e) {
+            throw new InvalidInputExeption();
+        }
+        if (input < min || input > max) {
+            throw new OutOFRangeExeption();
+        }
+        return input;
+    }
 }
 

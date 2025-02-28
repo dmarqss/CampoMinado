@@ -1,4 +1,4 @@
-package campoMinado;
+package campoMinado.model;
 
 public class EmptyBoard extends Board {
     private final String[][] emptyBoard = new String[10][10];
