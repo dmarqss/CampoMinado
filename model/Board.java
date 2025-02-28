@@ -3,7 +3,7 @@ package campoMinado.model;
 public abstract class Board {
     private String[][] grid;
 
-    public void showGrid(){
+    public void showGrid() {
 
 
         System.out.println("Y 0 1 2 3 4 5 6 7 8 9 ");
@@ -22,11 +22,11 @@ public abstract class Board {
         System.out.println(" CLICK(0) --- FLAG(1)");
     }
 
-    public String getOnGrid(int x, int y){
+    public String getOnGrid(int x, int y) {
         return this.grid[x][y];
     }
 
-    public void setOnGrid(int x, int y, String character){
+    public void setOnGrid(int x, int y, String character) {
         this.grid[x][y] = character;
     }
 
@@ -34,7 +34,7 @@ public abstract class Board {
         this.grid = grid;
     }
 
-    public String[][] getGrid(){
+    public String[][] getGrid() {
         return this.grid;
     }
 }

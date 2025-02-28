@@ -6,7 +6,7 @@ public class FullBoard extends Board {
     private final String[][] fullBoard = new String[10][10];
     private int numberOfBombs;
 
-    public FullBoard(int nuberOfBombs){
+    public FullBoard(int nuberOfBombs) {
         setGrid(fullBoard);
         setNumberOfBombs(nuberOfBombs * 5);
         makeFullBoard(getNumberOfBombs());
@@ -27,7 +27,7 @@ public class FullBoard extends Board {
             int x = random.nextInt(10);
             int y = random.nextInt(10);
 
-            if (getOnGrid(x, y) != "*") {
+            if (!getOnGrid(x, y).equals("*")) {
                 setOnGrid(x, y, "*");
                 setAround(x, y);
             } else {
@@ -38,35 +38,35 @@ public class FullBoard extends Board {
     }
 
     public void setAround(int x, int y) {
-        if (x - 1 >= 0 && getOnGrid(x - 1, y) != "*") {
+        if (x - 1 >= 0 && !getOnGrid(x - 1, y).equals("*")) {
             setOnGrid(x - 1, y, String.valueOf(getFullBoardInt(x - 1, y) + 1));
         }
-        if (y - 1 >= 0 && getOnGrid(x, y - 1) != "*") {
+        if (y - 1 >= 0 && !getOnGrid(x, y - 1).equals("*")) {
             setOnGrid(x, y - 1, String.valueOf(getFullBoardInt(x, y - 1) + 1));
         }
-        if (x + 1 <= 9 && getOnGrid(x + 1, y) != "*") {
+        if (x + 1 <= 9 && !getOnGrid(x + 1, y).equals("*")) {
             setOnGrid(x + 1, y, String.valueOf(getFullBoardInt(x + 1, y) + 1));
         }
-        if (y + 1 <= 9 && getOnGrid(x, y + 1) != "*") {
+        if (y + 1 <= 9 && !getOnGrid(x, y + 1).equals("*")) {
             setOnGrid(x, y + 1, String.valueOf(getFullBoardInt(x, y + 1) + 1));
         }
-        if (x - 1 >= 0 && y - 1 >= 0 && getOnGrid(x - 1, y - 1) != "*") {
+        if (x - 1 >= 0 && y - 1 >= 0 && !getOnGrid(x - 1, y - 1).equals("*")) {
             setOnGrid(x - 1, y - 1, String.valueOf(getFullBoardInt(x - 1, y - 1) + 1));
         }
-        if (y - 1 >= 0 && x + 1 <= 9 && getOnGrid(x + 1, y - 1) != "*") {
+        if (y - 1 >= 0 && x + 1 <= 9 && !getOnGrid(x + 1, y - 1).equals("*")) {
             setOnGrid(x + 1, y - 1, String.valueOf(getFullBoardInt(x + 1, y - 1) + 1));
         }
-        if (y + 1 <= 9 && x - 1 >= 0 && getOnGrid(x - 1, y + 1) != "*") {
+        if (y + 1 <= 9 && x - 1 >= 0 && !getOnGrid(x - 1, y + 1).equals("*")) {
             setOnGrid(x - 1, y + 1, String.valueOf(getFullBoardInt(x - 1, y + 1) + 1));
         }
-        if (y + 1 <= 9 && x + 1 <= 9 && getOnGrid(x + 1, y + 1) != "*") {
+        if (y + 1 <= 9 && x + 1 <= 9 && !getOnGrid(x + 1, y + 1).equals("*")) {
             setOnGrid(x + 1, y + 1, String.valueOf(getFullBoardInt(x + 1, y + 1) + 1));
         }
     }
 
     public int getFullBoardInt(int x, int y) {
         try {
-            return Integer.valueOf(fullBoard[x][y]);
+            return Integer.parseInt(fullBoard[x][y]);
         } catch (Exception e) {
             return 0;
         }

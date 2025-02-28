@@ -6,7 +6,7 @@ public class EmptyBoard extends Board {
     private int flagCorrect;
     private boolean alive;
 
-    public EmptyBoard(FullBoard fullBoard){
+    public EmptyBoard(FullBoard fullBoard) {
         setAlive(true);
         setFullBoard(fullBoard);
         setGrid(emptyBoard);
@@ -22,68 +22,65 @@ public class EmptyBoard extends Board {
         }
     }
 
-    public void flag(int x,int y){
-        if(getOnGrid(x,y).equals(".") || getOnGrid(x,y).equals("P")){
-            if(getOnGrid(x,y).equals("P")){
+    public void flag(int x, int y) {
+        if (getOnGrid(x, y).equals(".") || getOnGrid(x, y).equals("P")) {
+            if (getOnGrid(x, y).equals("P")) {
                 setOnGrid(x, y, ".");
-                if(fullBoard.getOnGrid(x, y).equals("*")){
+                if (fullBoard.getOnGrid(x, y).equals("*")) {
                     setFlagCorrect(+1);
                 }
-            }else{
+            } else {
                 setOnGrid(x, y, "P");
-                if(fullBoard.getOnGrid(x, y).equals("*")){
+                if (fullBoard.getOnGrid(x, y).equals("*")) {
                     setFlagCorrect(-1);
                 }
             }
-        }else{
+        } else {
             System.out.println("VOCE SO PODE MARCAR EM \".\"");
         }
     }
 
-    public void click(int x, int y){
-        if(fullBoard.getOnGrid(x,y).equals("*") && getOnGrid(x, y).equals(".")){
+    public void click(int x, int y) {
+        if (fullBoard.getOnGrid(x, y).equals("*") && getOnGrid(x, y).equals(".")) {
             showBombs();
             setAlive(false);
 
-        }else if(getOnGrid(x,y).equals("P") || getOnGrid(x, y) != "."){
+        } else if (getOnGrid(x, y).equals("P") || !getOnGrid(x, y).equals(".")) {
             System.out.println("VOCE SO PODE CLICAR EM \".\"");
             setAlive(true);
-        }
-        else{
-            fill(emptyBoard,x,y,".", fullBoard.getGrid());
+        } else {
+            fill(emptyBoard, x, y, fullBoard.getGrid());
             setAlive(true);
         }
     }
 
-    public void showBombs(){
+    public void showBombs() {
         for (int i = 0; i <= 9; i++) {
             for (int j = 0; j <= 9; j++) {
-                if(fullBoard.getOnGrid(i,j).equals("*")){
-                    setOnGrid(i,j, "*");
+                if (fullBoard.getOnGrid(i, j).equals("*")) {
+                    setOnGrid(i, j, "*");
                 }
             }
         }
     }
 
-    public void fill(String[][] emptyBoard, int x, int y, String oldPixel ,String[][] fullBoard) {
+    public void fill(String[][] emptyBoard, int x, int y, String[][] fullBoard) {
 
-        if (x < 0 || x >= emptyBoard.length || y < 0 || y >= emptyBoard[0].length){
+        if (x < 0 || x >= emptyBoard.length || y < 0 || y >= emptyBoard[0].length) {
             return;
-        } else if (fullBoard[x][y].equals("*") || getOnGrid(x,y).equals("P")) {
+        } else if (fullBoard[x][y].equals("*") || getOnGrid(x, y).equals("P")) {
             return;
-        }else if(fullBoard[x][y] != "0") {
-            setOnGrid(x,y, fullBoard[x][y]);
+        } else if (!fullBoard[x][y].equals("0")) {
+            setOnGrid(x, y, fullBoard[x][y]);
             return;
-        }else if(getOnGrid(x,y).equals(".")){
-            setOnGrid(x,y, "0");
+        } else if (getOnGrid(x, y).equals(".")) {
+            setOnGrid(x, y, "0");
 
-            fill(emptyBoard, x + 1, y, oldPixel, fullBoard);
-            fill(emptyBoard, x - 1, y, oldPixel, fullBoard);
-            fill(emptyBoard, x, y + 1, oldPixel, fullBoard);
-            fill(emptyBoard, x, y - 1, oldPixel, fullBoard);
+            fill(emptyBoard, x + 1, y, fullBoard);
+            fill(emptyBoard, x - 1, y, fullBoard);
+            fill(emptyBoard, x, y + 1, fullBoard);
+            fill(emptyBoard, x, y - 1, fullBoard);
         }
-
-
 
     }
 
